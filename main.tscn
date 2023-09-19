@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://chiegoqv47ecy"]
+
+[ext_resource type="PackedScene" uid="uid://b2huxfvvfboyd" path="res://Dice/dice.tscn" id="1_kjqkm"]
+[ext_resource type="PackedScene" uid="uid://c18bm4kkbvx2t" path="res://UI/UI.tscn" id="2_aliv2"]
+[ext_resource type="PackedScene" uid="uid://10qvxbbbh5hi" path="res://Camera/Camera.tscn" id="3_rwt00"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_c3uen"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_u2uyb"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[node name="main" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.887029, -1.14316, 3.35827)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(82.57, 0, 0, 0, 82.57, 0, 0, 0, 82.57, 0, 0, 0)
+mesh = SubResource("PlaneMesh_c3uen")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_u2uyb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.329378, 0.944198, 0, -0.944198, 0.329378, -3.58913, 4.56788, 0)
+
+[node name="Dice" type="Node3D" parent="."]
+
+[node name="Dice1" parent="Dice" instance=ExtResource("1_kjqkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4464, 0)
+freeze = true
+
+[node name="Dice2" parent="Dice" instance=ExtResource("1_kjqkm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4464, 8.09349)
+freeze = true
+
+[node name="CanvasLayer" parent="." instance=ExtResource("2_aliv2")]
+
+[node name="Camera3D" parent="." instance=ExtResource("3_rwt00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.41, 0)

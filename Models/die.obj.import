@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://xy7ndmf2ukww"
+path="res://.godot/imported/die.obj-7ad8a434d65d6209e95e40fc20fe8622.mesh"
+
+[deps]
+
+files=["res://.godot/imported/die.obj-7ad8a434d65d6209e95e40fc20fe8622.mesh"]
+
+source_file="res://Models/die.obj"
+dest_files=["res://.godot/imported/die.obj-7ad8a434d65d6209e95e40fc20fe8622.mesh", "res://.godot/imported/die.obj-7ad8a434d65d6209e95e40fc20fe8622.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

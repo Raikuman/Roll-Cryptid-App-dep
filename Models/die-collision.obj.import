@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://op2aypogirf2"
+path="res://.godot/imported/die-collision.obj-3304b9bf94f8c4e92ef6fd15c2264f46.mesh"
+
+[deps]
+
+files=["res://.godot/imported/die-collision.obj-3304b9bf94f8c4e92ef6fd15c2264f46.mesh"]
+
+source_file="res://Models/die-collision.obj"
+dest_files=["res://.godot/imported/die-collision.obj-3304b9bf94f8c4e92ef6fd15c2264f46.mesh", "res://.godot/imported/die-collision.obj-3304b9bf94f8c4e92ef6fd15c2264f46.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
