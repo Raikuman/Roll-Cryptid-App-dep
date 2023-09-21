@@ -17,7 +17,7 @@ public partial class Camera : Node3D
 
 	// Pan
 	[ExportGroup("Pan")]
-	[Export] private float panSpeed = 0.25f, panDecline = 0.93f;
+	[Export] private float panSpeed = 0.25f, panDecline = 0.9f;
 	private float panMotion, panVelocity, mouseMotion, prevMouseMotion;
 	
 	// Top down
@@ -129,7 +129,7 @@ public partial class Camera : Node3D
 			panMotion = 0;
 		}
 		
-		panMotion = Math.Clamp(panMotion, -4f, 4f);
+		panMotion = Math.Clamp(panMotion, -2f, 2f);
 		
 		// // Handle velocity
 		panVelocity += panMotion * panSpeed;

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://chiegoqv47ecy"]
+[gd_scene load_steps=7 format=3 uid="uid://chiegoqv47ecy"]
 
-[ext_resource type="PackedScene" uid="uid://b2huxfvvfboyd" path="res://Dice/dice.tscn" id="1_kjqkm"]
-[ext_resource type="PackedScene" uid="uid://c18bm4kkbvx2t" path="res://UI/UI.tscn" id="2_aliv2"]
+[ext_resource type="PackedScene" uid="uid://c83ieybel6twd" path="res://Dice Manager/dice_manager.tscn" id="1_jswxh"]
 [ext_resource type="PackedScene" uid="uid://10qvxbbbh5hi" path="res://Camera/Camera.tscn" id="3_rwt00"]
+[ext_resource type="Script" path="res://MultiplayerSetup.cs" id="4_mojdi"]
+[ext_resource type="Script" path="res://FPS.cs" id="4_ranos"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_c3uen"]
 
@@ -12,8 +13,10 @@ data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0
 [node name="main" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.887029, -1.14316, 3.35827)
 
+[node name="DiceManager" parent="." instance=ExtResource("1_jswxh")]
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(82.57, 0, 0, 0, 82.57, 0, 0, 0, 82.57, 0, 0, 0)
+transform = Transform3D(82.57, 0, 0, 0, 82.57, 0, 0, 0, 82.57, 0, -18.5305, 0)
 mesh = SubResource("PlaneMesh_c3uen")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
@@ -23,18 +26,7 @@ shape = SubResource("ConcavePolygonShape3D_u2uyb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.329378, 0.944198, 0, -0.944198, 0.329378, -3.58913, 4.56788, 0)
-
-[node name="Dice" type="Node3D" parent="."]
-
-[node name="Dice1" parent="Dice" instance=ExtResource("1_kjqkm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4464, 0)
-freeze = true
-
-[node name="Dice2" parent="Dice" instance=ExtResource("1_kjqkm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.4464, 8.09349)
-freeze = true
-
-[node name="CanvasLayer" parent="." instance=ExtResource("2_aliv2")]
+shadow_enabled = true
 
 [node name="Camera3D" parent="." instance=ExtResource("3_rwt00")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.41, 0)
@@ -42,11 +34,32 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 65.41, 0)
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="Label" type="Label" parent="CanvasLayer2"]
-offset_left = 7.0
-offset_top = 538.0
-offset_right = 248.0
-offset_bottom = 646.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 2.825
+offset_top = -108.0
+offset_right = 243.825
+grow_vertical = 0
 text = "Left-Click: Roll Dice
 Right-Click & Drag: Pan Camera
 Scrollwheel: Zoom
 Middle-Click: Reset Zoom"
+
+[node name="FPS Counter" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -102.0
+offset_bottom = 23.0
+grow_horizontal = 0
+horizontal_alignment = 2
+script = ExtResource("4_ranos")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../MultiplayerNode")
+
+[node name="MultiplayerNode" type="Node" parent="."]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_mojdi")
