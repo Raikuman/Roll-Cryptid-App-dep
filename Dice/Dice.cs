@@ -7,21 +7,14 @@ public partial class Dice : RigidBody3D
 	private Vector3 initialPosition;
 	public int upmostFace = 0;
 	
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		initialPosition = GlobalTransform.Origin;
-		throwDice();
+		Freeze = true;
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _PhysicsProcess(double delta)
+	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("lmb"))
-		{
-			throwDice();
-		}
-
 		if (LinearVelocity.Length() < 0.1 && AngularVelocity.Length() < 0.1 && Freeze == false)
 		{
 			Freeze = true;
@@ -30,7 +23,7 @@ public partial class Dice : RigidBody3D
 		getSide();
 	}
 	
-	private void throwDice()
+	public void throwDice()
 	{
 		GlobalPosition = initialPosition;
 		Freeze = false;
