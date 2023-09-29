@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi3a2utefqvuj"]
+
+[ext_resource type="Script" path="res://GameScenes/Game/MultiplayerHandler.cs" id="1_tnjkw"]
+[ext_resource type="PackedScene" uid="uid://ceftloei6y6yr" path="res://UIElements/FPS/FPS.tscn" id="2_ceevo"]
+[ext_resource type="PackedScene" uid="uid://c52ch21kwjlyv" path="res://Resources/Fade/Fade.tscn" id="3_llbbe"]
+[ext_resource type="PackedScene" uid="uid://bx3e1uc1s133e" path="res://UIElements/DiceManager/DiceManager.tscn" id="3_mag5e"]
+
+[node name="Game" type="Node" node_paths=PackedStringArray("levelNode")]
+script = ExtResource("1_tnjkw")
+levelNode = NodePath("Level")
+
+[node name="Level" type="Node" parent="."]
+
+[node name="Dice" type="Node" parent="."]
+
+[node name="FPS" parent="." instance=ExtResource("2_ceevo")]
+
+[node name="DiceManager" parent="." node_paths=PackedStringArray("diceNode") instance=ExtResource("3_mag5e")]
+diceNode = NodePath("../Dice")
+
+[node name="ConnectUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="ConnectUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ConnectLabel" type="Label" parent="ConnectUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Connecting..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fade" parent="." instance=ExtResource("3_llbbe")]
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Levels/Tabletop.tscn")
+spawn_path = NodePath("../Level")
+
+[node name="DiceSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Dice/D20.tscn")
+spawn_path = NodePath("../Dice")
