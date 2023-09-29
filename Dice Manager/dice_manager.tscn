@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://c83ieybel6twd"]
 
-[ext_resource type="Script" path="res://Dice Manager/DiceManager.cs" id="1_v1in4"]
-[ext_resource type="Script" path="res://Dice Manager/ScrollToBottom.cs" id="2_3xjmw"]
+[ext_resource type="Script" path="res://UIElements/DiceManager/DiceManager.cs" id="1_v1in4"]
+[ext_resource type="Script" path="res://UIElements/DiceManager/ScrollToBottom.cs" id="2_3xjmw"]
 
 [node name="DiceManager" type="Node3D"]
 script = ExtResource("1_v1in4")

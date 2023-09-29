@@ -5,7 +5,7 @@ public partial class Dice : RigidBody3D
 {
 	[Export] private int maxAngle = 20, maxVel = 4;
 	private Vector3 initialPosition;
-	public int upmostFace = 0;
+	public int upmostFace = 0, thrower;
 	
 	public override void _Ready()
 	{
@@ -23,24 +23,21 @@ public partial class Dice : RigidBody3D
 		getSide();
 	}
 	
-	public void throwDice()
+	public void throwDice(Vector3 throwPosition, Vector3 throwAngle)
 	{
 		GlobalPosition = initialPosition;
 		Freeze = false;
 
 		var rng = new RandomNumberGenerator();
-
+		
 		var randomAngle = new Vector3(
 			rng.RandiRange(-maxAngle, maxAngle), 
 			rng.RandiRange(-maxAngle, maxAngle), 
 			rng.RandiRange(-maxAngle, maxAngle));
 		AngularVelocity = randomAngle;
 
-		var randomVelocity = new Vector3(
-			rng.RandiRange(-maxVel, maxVel),
-			rng.RandiRange(-maxVel, maxVel),
-			rng.RandiRange(-maxVel, maxVel));
-		LinearVelocity = randomVelocity;
+		LinearVelocity = throwAngle * 10;
+		Position = throwPosition;
 	}
 
 	private void getSide()

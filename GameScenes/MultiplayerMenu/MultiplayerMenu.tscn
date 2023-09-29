@@ -1,0 +1,68 @@
+[gd_scene load_steps=3 format=3 uid="uid://v0qxxuhocvnk"]
+
+[ext_resource type="Script" path="res://GameScenes/MultiplayerMenu/MultiplayerMenu.cs" id="1_5qg5y"]
+[ext_resource type="PackedScene" uid="uid://c52ch21kwjlyv" path="res://Resources/Fade/Fade.tscn" id="2_6h776"]
+
+[node name="MultiplayerMenu" type="Node" node_paths=PackedStringArray("connectButton", "hostButton", "addressLine", "errorLabel")]
+script = ExtResource("1_5qg5y")
+connectButton = NodePath("Menu/VBoxContainer/Connect")
+hostButton = NodePath("Menu/VBoxContainer/Host")
+addressLine = NodePath("Menu/VBoxContainer/Address")
+errorLabel = NodePath("Menu/VBoxContainer/Control/Error")
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -12.0
+offset_right = 150.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Menu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Error" type="Label" parent="Menu/VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -34.485
+offset_bottom = -0.720001
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+
+[node name="Address" type="LineEdit" parent="Menu/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "IP Address"
+
+[node name="Connect" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Connect"
+
+[node name="Host" type="Button" parent="Menu/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Host"
+
+[node name="Fade" parent="." instance=ExtResource("2_6h776")]
+
+[connection signal="pressed" from="Menu/VBoxContainer/Connect" to="." method="_on_connect_pressed"]
+[connection signal="pressed" from="Menu/VBoxContainer/Host" to="." method="_on_host_pressed"]
