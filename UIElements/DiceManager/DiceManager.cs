@@ -5,65 +5,109 @@ using System.Linq;
 
 public partial class DiceManager : Node
 {
-	[Export] private Label diceLabel;
-	[Export] private Node diceNode;
-	private int numDice;
+	[Export] private Label _diceLabel;
+	[Export] private int _diceRows = 4;
+	private int _numDice;
 
 	private void _on_roll_pressed()
 	{
+		if (_numDice == 0) return;
 		AddDice();
 	}
 
 	private void AddDice()
 	{
-		// Retrieve camera forward
+		// Retrieve camera vectors
 		var cameraHolder = (Node3D)GetViewport().GetCamera3D().GetParent();
 		var camera = GetViewport().GetCamera3D();
 	
 		var up = camera.GlobalTransform.Basis.Y;
 		var left = camera.GlobalTransform.Basis.X;
+
+		var throwPosition = cameraHolder.Position + up * -2;
+		var throwLeft = left * 2;
 		
-		// Calculate camera position
-		// if (i % 2 != 0)
-		// {
-		// 	left *= -i;
-		// }
+		Rpc("_add_dice", Multiplayer.GetUniqueId(), _numDice, throwPosition, camera.GlobalTransform);
 		
-		var cameraPos = cameraHolder.Position + up * -2 + left * 2;
-		
-		Rpc("_add_dice", Multiplayer.GetUniqueId(), cameraPos, camera.GlobalTransform.Basis.Z.Normalized() * -1);
+		_numDice = 0;
+		_diceLabel.Text = "Num dice: " + _numDice;
 	}
 	
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
-	private void _add_dice(int throwId, Vector3 throwPos, Vector3 throwAngle)
+	private void _add_dice(int throwId, int numDice, Vector3 initialPosition, Transform3D cameraTransform)
 	{
 		if (!IsMultiplayerAuthority()) return;
 		
-		var newDice = ResourceLoader.Load<PackedScene>("res://Dice/D20.tscn").Instantiate();
-		((Dice)newDice).thrower = throwId;
-		newDice.Name = "TESTDICE";
-		diceNode.AddChild(newDice, true);
-		
-		if (newDice is Dice dice)
+		var diceResource = ResourceLoader.Load<PackedScene>("res://Dice/D20.tscn").Instantiate();
+
+		var left = cameraTransform.Basis.X * 2;
+		var backward = cameraTransform.Basis.Z * -2;
+		var down = cameraTransform.Basis.Y * -2;
+
+		var diceInRow = 0;
+		var rows = 0;
+		var set = 0;
+		for (var i = 0; i < numDice; i++)
 		{
-			dice.throwDice(throwPos, throwAngle);
+			var newDice = diceResource.Duplicate();
+			((Dice)newDice)._thrower = throwId;
+			((Dice)newDice)._initialPosition = initialPosition + left;
+			newDice.Name = "D20-";
+			GetParent().GetNode("Dice").AddChild(newDice, true);
+
+			// Setup position
+			var spawnPos = initialPosition;
+			var rowPos = left;
+
+			// Create new set
+			spawnPos += down * set;
+			
+			// Create new rows
+			spawnPos += backward * rows;
+			
+			// Alternate row position
+			if (i % 2 != 0) rowPos *= -1;
+
+			// Set row position
+			spawnPos += rowPos * diceInRow * 0.5f;
+
+			// Throw dice
+			if (newDice is Dice dice)
+			{
+				dice.ThrowDice(spawnPos, cameraTransform.Basis.Z.Normalized() * -1);
+			}
+
+			// Update rows and sets
+			if (i > 0 && i % _diceRows == 0)
+			{
+				diceInRow = 0;
+				rows++;
+			}
+
+			if (rows > _diceRows)
+			{
+				rows = 0;
+				set++;
+			}
+
+			diceInRow++;
 		}
 	}
 	
 	private void _increase_dice()
 	{
-		numDice++;
-		diceLabel.Text = "Num dice: " + numDice;
+		_numDice++;
+		_diceLabel.Text = "Num dice: " + _numDice;
 	}
 	
 	private void _decrease_dice()
 	{
-		if (numDice <= 0) return;
+		if (_numDice <= 0) return;
 		
-		numDice--;
-		diceLabel.Text = "Num dice: " + numDice;
+		_numDice--;
+		_diceLabel.Text = "Num dice: " + _numDice;
 	}
-	
+
 	// [Export] private Label diceLabel;
 	// [Export] private Node rollLog, diceNode;
 	// [Export] private float timeShown = 5f;
@@ -193,7 +237,7 @@ public partial class DiceManager : Node
 	// 	rolling = true;
 	// }
 	//
-	// private void AddDice()
+	// private void AddDice
 	// {
 	// 	Rpc("_add_dice", numDice);
 	// }

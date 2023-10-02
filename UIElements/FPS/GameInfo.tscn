@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://ceftloei6y6yr"]
+
+[ext_resource type="Script" path="res://UIElements/FPS/FPS.cs" id="1_ykg55"]
+[ext_resource type="Script" path="res://UIElements/FPS/Vsync.cs" id="2_38w8j"]
+
+[node name="GameInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -84.965
+offset_top = 26.0
+offset_bottom = 52.0
+grow_horizontal = 0
+text = "FPS"
+script = ExtResource("1_ykg55")
+
+[node name="ColorRect" type="ColorRect" parent="Label"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.14902)
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -139.0
+offset_top = 1.0
+offset_right = -95.0
+offset_bottom = 25.0
+grow_horizontal = 0
+focus_mode = 0
+script = ExtResource("2_38w8j")
+
+[node name="Label2" type="Label" parent="CheckButton"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = -1.0
+offset_right = 138.84
+offset_bottom = 25.0
+text = "VSYNC: OFF"
+
+[node name="ColorRect" type="ColorRect" parent="CheckButton/Label2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.14902)
+
+[connection signal="toggled" from="CheckButton" to="CheckButton" method="toggled"]

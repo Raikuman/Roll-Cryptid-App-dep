@@ -11,7 +11,7 @@ metallic = 0.42
 metallic_specular = 0.6
 roughness = 0.7
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ni3t0"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_fttnw"]
 points = PackedVector3Array(-0.219681, -3.00865, 1.15259, 0.199358, -3.01162, 1.15374, 0.0926624, -0.176308, -3.31442, 2.80981, 1.0748, -1.2529, 0.0937348, 0.134494, 3.34936, -2.81753, -1.00882, 1.55962, -2.79542, 0.647966, -1.54629, -1.7846, -2.47409, -1.56512, 1.76712, -2.47812, -1.56798, 2.80493, -1.01161, 1.56402, 1.78063, 2.45395, 1.5803, 0.19637, 2.92558, -1.55027, -1.79419, 2.4445, 1.57464, -2.83009, 0.969812, -1.56554, 0.0935471, -2.99888, 1.56704, 2.80703, 0.968922, -1.56479, -0.216192, 2.91545, -1.54494, -0.321742, 0.133408, -3.22079, -0.114482, 0.13399, 3.33854, -0.325005, 2.97108, -0.943917, 0.30184, 0.133721, -3.22731, 2.80117, -0.697708, 1.56193, -2.80682, -0.69413, 1.55367, 2.78943, 0.65204, -1.55501, -0.114227, -2.98735, 1.56097, -2.81048, 1.0665, -1.24342, 2.70022, -1.21965, 0.938045, 0.938077, 2.77018, 0.105143, 0.0897243, -0.171887, 3.22021, -1.58068, 2.54378, 1.25661, -2.39653, -1.63008, 0.103579, -0.942554, -0.280464, 2.79772)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2il1"]
@@ -26,30 +26,25 @@ properties/1/path = NodePath(".:rotation")
 properties/1/spawn = true
 properties/1/sync = true
 properties/1/watch = false
-properties/2/path = NodePath(".:linear_velocity")
-properties/2/spawn = true
-properties/2/sync = true
-properties/2/watch = false
-properties/3/path = NodePath(".:angular_velocity")
-properties/3/spawn = true
-properties/3/sync = true
-properties/3/watch = false
 
 [node name="D20" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 2
+mass = 0.05
 script = ExtResource("1_aqaag")
 
 [node name="Die" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.25, 0, 0, 0, 0.245572, 0.0468453, 0, -0.0468453, 0.245572, 0, 0, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.0982287, 0.0187381, 0, -0.0187381, 0.0982287, 0, 0, 0)
 mesh = ExtResource("2_a6yk0")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_dfv4u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.25, 0, 0, 0, 0.245572, 0.0468453, 0, -0.0468453, 0.245572, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_ni3t0")
+transform = Transform3D(0.1, 0, 0, 0, 0.0982287, 0.0187381, 0, -0.0187381, 0.0982287, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_fttnw")
 
 [node name="Numbers" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.25, 0, 0, 0, 0.245572, 0.0468453, 0, -0.0468453, 0.245572, 0, 0, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.0982287, 0.0187381, 0, -0.0187381, 0.0982287, 0, 0, 0)
 mesh = ExtResource("3_ichil")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_h2il1")

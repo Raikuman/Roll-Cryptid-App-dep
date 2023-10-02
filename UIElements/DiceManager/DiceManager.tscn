@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://UIElements/DiceManager/DiceManager.cs" id="1_7lfat"]
 [ext_resource type="Script" path="res://UIElements/DiceManager/ScrollToBottom.cs" id="2_24wyt"]
 
-[node name="DiceManager" type="Node" node_paths=PackedStringArray("diceLabel")]
+[node name="DiceManager" type="Node" node_paths=PackedStringArray("_diceLabel")]
 script = ExtResource("1_7lfat")
-diceLabel = NodePath("Menu/VBoxContainer/NumDice")
+_diceLabel = NodePath("Menu/VBoxContainer/NumDice")
 
 [node name="Menu" type="MarginContainer" parent="."]
 anchors_preset = 7
@@ -35,11 +35,15 @@ alignment = 1
 
 [node name="RemoveDice" type="Button" parent="Menu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
 text = "<<<"
 icon_alignment = 1
 
 [node name="AddDice" type="Button" parent="Menu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 1
 text = ">>>"
 icon_alignment = 1
 
@@ -50,6 +54,7 @@ alignment = 1
 
 [node name="Roll" type="Button" parent="Menu/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+focus_mode = 0
 text = "Roll
 "
 icon_alignment = 1

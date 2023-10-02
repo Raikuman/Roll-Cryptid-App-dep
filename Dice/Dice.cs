@@ -3,40 +3,64 @@ using System;
 
 public partial class Dice : RigidBody3D
 {
-	[Export] private int maxAngle = 20, maxVel = 4;
-	private Vector3 initialPosition;
-	public int upmostFace = 0, thrower;
+	[Export] private int _numSides = 20, _maxVel = 10;
+	public Vector3 _initialPosition;
+	public int _upmostFace, _thrower;
+	private double _freezeTimer, _freezeThreshold = 1;
 	
 	public override void _Ready()
 	{
-		initialPosition = GlobalTransform.Origin;
+		Position = _initialPosition;
 		Freeze = true;
+
+		if (!IsMultiplayerAuthority())
+		{
+			FreezeMode = FreezeModeEnum.Static;
+		}
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		if (Position.Y < -20)
+		{
+			Position = _initialPosition;
+		}
 	}
 
 	public override void _Process(double delta)
 	{
+		if (Freeze) return;
+		
 		if (LinearVelocity.Length() < 0.1 && AngularVelocity.Length() < 0.1 && Freeze == false)
 		{
-			Freeze = true;
+			_freezeTimer += delta;
+			if (_freezeTimer > _freezeThreshold)
+			{
+				Freeze = true;
+				// GetSide
+			}
 		}
-		
-		getSide();
+		else
+		{
+			_freezeTimer = 0;
+		}
 	}
 	
-	public void throwDice(Vector3 throwPosition, Vector3 throwAngle)
+	public void ThrowDice(Vector3 throwPosition, Vector3 throwAngle)
 	{
-		GlobalPosition = initialPosition;
 		Freeze = false;
 
 		var rng = new RandomNumberGenerator();
-		
+
+		var generateAngle = rng.RandfRange(Mathf.DegToRad(40f), Mathf.DegToRad(360f));
 		var randomAngle = new Vector3(
-			rng.RandiRange(-maxAngle, maxAngle), 
-			rng.RandiRange(-maxAngle, maxAngle), 
-			rng.RandiRange(-maxAngle, maxAngle));
+			generateAngle * rng.RandiRange(-7, 7), 
+			generateAngle * rng.RandiRange(-7, 7), 
+			generateAngle * rng.RandiRange(-7, 7));
 		AngularVelocity = randomAngle;
 
-		LinearVelocity = throwAngle * 10;
+		throwAngle.Y += Mathf.DegToRad(40f);
+		LinearVelocity = throwAngle * _maxVel;
 		Position = throwPosition;
 	}
 
@@ -54,7 +78,7 @@ public partial class Dice : RigidBody3D
 			if (upness > maxUpness)
 			{
 				maxUpness = upness;
-				upmostFace = script.face;
+				_upmostFace = script.face;
 			}
 		}
 	}

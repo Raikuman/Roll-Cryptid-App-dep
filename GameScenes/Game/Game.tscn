@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bi3a2utefqvuj"]
+[gd_scene load_steps=6 format=3 uid="uid://bi3a2utefqvuj"]
 
 [ext_resource type="Script" path="res://GameScenes/Game/MultiplayerHandler.cs" id="1_tnjkw"]
-[ext_resource type="PackedScene" uid="uid://ceftloei6y6yr" path="res://UIElements/FPS/FPS.tscn" id="2_ceevo"]
+[ext_resource type="PackedScene" uid="uid://ceftloei6y6yr" path="res://UIElements/FPS/GameInfo.tscn" id="2_ceevo"]
+[ext_resource type="PackedScene" uid="uid://gy870ntwukl7" path="res://UIElements/EnvironmentManager/EnvironmentManager.tscn" id="3_8o4fy"]
 [ext_resource type="PackedScene" uid="uid://c52ch21kwjlyv" path="res://Resources/Fade/Fade.tscn" id="3_llbbe"]
 [ext_resource type="PackedScene" uid="uid://bx3e1uc1s133e" path="res://UIElements/DiceManager/DiceManager.tscn" id="3_mag5e"]
 
@@ -13,10 +14,11 @@ levelNode = NodePath("Level")
 
 [node name="Dice" type="Node" parent="."]
 
-[node name="FPS" parent="." instance=ExtResource("2_ceevo")]
+[node name="GameInfo" parent="." instance=ExtResource("2_ceevo")]
 
-[node name="DiceManager" parent="." node_paths=PackedStringArray("diceNode") instance=ExtResource("3_mag5e")]
-diceNode = NodePath("../Dice")
+[node name="EnvironmentManager" parent="." instance=ExtResource("3_8o4fy")]
+
+[node name="DiceManager" parent="." instance=ExtResource("3_mag5e")]
 
 [node name="ConnectUI" type="Control" parent="."]
 layout_mode = 3
