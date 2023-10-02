@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdr2hh5s780nm"]
+
+[ext_resource type="Script" path="res://Sky/SkyControl.cs" id="2_hxmyf"]
+
+[sub_resource type="Gradient" id="Gradient_syonv"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5lk18"]
+gradient = SubResource("Gradient_syonv")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lf7d8"]
+ground_bottom_color = Color(0, 0.054902, 0.0784314, 1)
+
+[sub_resource type="Sky" id="Sky_6sfwd"]
+sky_material = SubResource("ProceduralSkyMaterial_lf7d8")
+
+[sub_resource type="Environment" id="Environment_sd6af"]
+background_mode = 2
+sky = SubResource("Sky_6sfwd")
+sdfgi_enabled = true
+adjustment_color_correction = SubResource("GradientTexture2D_5lk18")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8rsot"]
+properties/0/path = NodePath("Sun:rotation")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath("Moon:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
+properties/2/path = NodePath(".:TimeOfDay")
+properties/2/spawn = true
+properties/2/sync = true
+properties/2/watch = false
+
+[node name="Environment" type="WorldEnvironment" node_paths=PackedStringArray("_sunLight", "_moonLight")]
+environment = SubResource("Environment_sd6af")
+script = ExtResource("2_hxmyf")
+_sunLight = NodePath("Cycle/Sun")
+_moonLight = NodePath("Cycle/Moon")
+
+[node name="Cycle" type="Node3D" parent="."]
+
+[node name="Sun" type="DirectionalLight3D" parent="Cycle"]
+light_angular_distance = 1.5
+shadow_enabled = true
+
+[node name="Moon" type="DirectionalLight3D" parent="Cycle"]
+transform = Transform3D(1, 0, 0, 0, -1, -1.50996e-07, 0, 1.50996e-07, -1, 0, 0, 0)
+light_angular_distance = 1.5
+shadow_enabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8rsot")
