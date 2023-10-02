@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cdr2hh5s780nm"]
 
-[ext_resource type="Script" path="res://Sky/SkyControl.cs" id="2_hxmyf"]
+[ext_resource type="Script" path="res://Levels/Sky/SkyControl.cs" id="1_uadfu"]
 
 [sub_resource type="Gradient" id="Gradient_syonv"]
 
@@ -35,7 +35,7 @@ properties/2/watch = false
 
 [node name="Environment" type="WorldEnvironment" node_paths=PackedStringArray("_sunLight", "_moonLight")]
 environment = SubResource("Environment_sd6af")
-script = ExtResource("2_hxmyf")
+script = ExtResource("1_uadfu")
 _sunLight = NodePath("Cycle/Sun")
 _moonLight = NodePath("Cycle/Moon")
 

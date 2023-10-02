@@ -30,14 +30,14 @@ public partial class SkyControl : WorldEnvironment
 		_cycle = GetNode<Node3D>("Cycle");
 		
 		_sunLight = GetNode<DirectionalLight3D>("Cycle/Sun");
-		_sunColor = ResourceLoader.Load<Gradient>("res://Sky/Gradients/SunGradient.tres");
-		_sunTop = ResourceLoader.Load<Gradient>("res://Sky/Gradients/SunTop.tres");
-		_sunHorizon = ResourceLoader.Load<Gradient>("res://Sky/Gradients/SunHorizon.tres");
+		_sunColor = ResourceLoader.Load<Gradient>("res://Levels/Sky/Gradients/SunGradient.tres");
+		_sunTop = ResourceLoader.Load<Gradient>("res://Levels/Sky/Gradients/SunTop.tres");
+		_sunHorizon = ResourceLoader.Load<Gradient>("res://Levels/Sky/Gradients/SunHorizon.tres");
 		
 		_moonLight = GetNode<DirectionalLight3D>("Cycle/Moon");
-		_moonColor = ResourceLoader.Load<Gradient>("res://Sky/Gradients/MoonGradient.tres");
-		_moonTop = ResourceLoader.Load<Gradient>("res://Sky/Gradients/MoonTop.tres");
-		_moonHorizon = ResourceLoader.Load<Gradient>("res://Sky/Gradients/MoonHorizon.tres");
+		_moonColor = ResourceLoader.Load<Gradient>("res://Levels/Sky/Gradients/MoonGradient.tres");
+		_moonTop = ResourceLoader.Load<Gradient>("res://Levels/Sky/Gradients/MoonTop.tres");
+		_moonHorizon = ResourceLoader.Load<Gradient>("res://Levels/Sky/Gradients/MoonHorizon.tres");
 		
 		UpdateSky();
 	}

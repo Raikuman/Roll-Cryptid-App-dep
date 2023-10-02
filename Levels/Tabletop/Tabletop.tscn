@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cokw5uoqfh0rr"]
 
-[ext_resource type="Script" path="res://Levels/Tabletop.cs" id="1_5lnid"]
+[ext_resource type="Script" path="res://Levels/Tabletop/Tabletop.cs" id="1_xqbc1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sk8pw"]
 albedo_color = Color(0.0941176, 0.411765, 0.0352941, 1)
@@ -13,7 +13,7 @@ points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_2xjwh"]
 
 [node name="Tabletop" type="Node3D"]
-script = ExtResource("1_5lnid")
+script = ExtResource("1_xqbc1")
 
 [node name="Level" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.60699, 0)

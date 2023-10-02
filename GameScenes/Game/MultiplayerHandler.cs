@@ -49,7 +49,7 @@ public partial class MultiplayerHandler : Node
 			{
 				connecting = false;
 				((Label)GetNode("ConnectUI/ConnectLabel")).Text = "Connected!";
-				ChangeLevel(ResourceLoader.Load<PackedScene>("res://Levels/Tabletop.tscn"));
+				ChangeLevel(ResourceLoader.Load<PackedScene>("res://Levels/Tabletop/Tabletop.tscn"));
 				((Fade)GetNode("Fade")).FadeIn();
 				isLoading = true;
 			}
