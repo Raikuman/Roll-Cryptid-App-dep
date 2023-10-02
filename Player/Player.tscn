@@ -1,11 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccykobcy3q10c"]
+[gd_scene load_steps=6 format=3 uid="uid://ccykobcy3q10c"]
 
-[ext_resource type="Script" path="res://Player/Camera/PlayerCamera.cs" id="1_e1dad"]
+[ext_resource type="Script" path="res://Player/PlayerCamera.cs" id="1_p7vyr"]
+[ext_resource type="Script" path="res://Player/MouseManager.cs" id="1_x5j8t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grnty"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nnu4l"]
+material = SubResource("StandardMaterial3D_grnty")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_2am0o"]
+properties/0/path = NodePath("MouseManager/MouseMesh:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
 
 [node name="Player" type="Node3D"]
 
+[node name="MouseManager" type="Node3D" parent="."]
+script = ExtResource("1_x5j8t")
+
+[node name="MouseMesh" type="MeshInstance3D" parent="MouseManager"]
+transform = Transform3D(0.5, 0, 0, 0, 0.055, 0, 0, 0, 0.5, 0, 0, 0)
+cast_shadow = 0
+mesh = SubResource("CylinderMesh_nnu4l")
+
+[node name="Timer" type="Timer" parent="MouseManager"]
+wait_time = 0.5
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="MouseManager"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_2am0o")
+
 [node name="CameraHolder" type="Node3D" parent="."]
-script = ExtResource("1_e1dad")
+script = ExtResource("1_p7vyr")
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
-transform = Transform3D(1, 0, 0, 0, 0.34202, 0.939693, 0, -0.939693, 0.34202, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766045, 0, -0.766045, 0.642788, 0, 0, 0)
+
+[connection signal="timeout" from="MouseManager/Timer" to="MouseManager" method="_on_timer_timeout"]

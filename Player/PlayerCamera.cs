@@ -28,7 +28,7 @@ public partial class PlayerCamera : Node3D
 	[ExportGroup("Tactical View")] 
 	[Export] private float _tactSpeed = 5f;
 	private bool _tacticalView;
-	private float _tactDefaultRot = -70f;
+	private float _tactDefaultRot = -50f;
 	
 	public override void _EnterTree()
 	{
@@ -39,7 +39,7 @@ public partial class PlayerCamera : Node3D
 	public override void _Ready()
 	{
 		cameraObj = (Camera3D)GetNode("Camera3D");
-		Position = new Vector3(0, 10, 0);
+		Position = new Vector3(0, 3, 0);
 	}
 
 	public override void _Input(InputEvent @event)
