@@ -5,7 +5,7 @@ public partial class SkyControl : WorldEnvironment
 {
 	private float _timeOfDay = 150;
 	
-	[Export(PropertyHint.Range, "0, 1200")]
+	[Export(PropertyHint.Range, "0, 1440")]
 	public float TimeOfDay
 	{
 		set
@@ -47,7 +47,7 @@ public partial class SkyControl : WorldEnvironment
 		if (!_enableCycle || _cycleSpeed == 0) return;
 
 		_timeOfDay += (float)delta * _cycleSpeed;
-		if (_timeOfDay > 1200) _timeOfDay = 0;
+		if (_timeOfDay > 1440) _timeOfDay = 0;
 
 		UpdateSky();
 	}
@@ -60,14 +60,12 @@ public partial class SkyControl : WorldEnvironment
 
 	private void UpdateRotation()
 	{
-		if (!IsMultiplayerAuthority()) return;
-		
 		_cycle.Rotation = new Vector3(Mathf.DegToRad(_timeOfDay * -0.3f), 0, 0);
 	}
 
 	private void UpdateLights()
 	{
-		var light = Mathf.Sin(Mathf.Pi/600 * _timeOfDay);
+		var light = Mathf.Sin(Mathf.Pi/720 * _timeOfDay);
 		if (light > 0)
 		{
 			// Update light
