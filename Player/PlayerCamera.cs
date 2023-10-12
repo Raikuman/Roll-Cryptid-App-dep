@@ -164,7 +164,9 @@ public partial class PlayerCamera : Node3D
 		{
 			cameraObj.Fov = Mathf.Lerp(cameraObj.Fov, _zoomDefaultFov, _zoomSpeed / 3f * (float)delta);
 			if (Mathf.IsEqualApprox(Mathf.Ceil(cameraObj.Fov), _zoomDefaultFov)
-			    || Mathf.IsEqualApprox(Mathf.Floor(cameraObj.Fov), _zoomDefaultFov))
+			    || Mathf.IsEqualApprox(Mathf.Floor(cameraObj.Fov), _zoomDefaultFov)
+			    || Input.IsActionJustPressed("scrollwheel_down")
+			    || Input.IsActionJustPressed("scrollwheel_up"))
 			{
 				_zoomReset = false;
 			}
