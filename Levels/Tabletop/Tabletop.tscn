@@ -1,6 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cokw5uoqfh0rr"]
-
-[ext_resource type="Script" path="res://Levels/Tabletop/Tabletop.cs" id="1_xqbc1"]
+[gd_scene load_steps=5 format=3 uid="uid://cokw5uoqfh0rr"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sk8pw"]
 albedo_color = Color(0.0941176, 0.411765, 0.0352941, 1)
@@ -13,7 +11,6 @@ points = PackedVector3Array(-1, 0, -1, -1, 0, 1, 1, 0, -1, 1, 0, 1)
 [sub_resource type="PrismMesh" id="PrismMesh_2xjwh"]
 
 [node name="Tabletop" type="Node3D"]
-script = ExtResource("1_xqbc1")
 
 [node name="Level" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.60699, 0)
@@ -32,9 +29,3 @@ shape = SubResource("ConvexPolygonShape3D_ghncd")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Level"]
 transform = Transform3D(0.756493, 0, 0.654002, 0, 1, 0, -0.654002, 0, 0.756493, 1.11557, 0.501524, -1.46494)
 mesh = SubResource("PrismMesh_2xjwh")
-
-[node name="Players" type="Node" parent="."]
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://Player/Player.tscn")
-spawn_path = NodePath("../Players")

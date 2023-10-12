@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://7n5w2hbagctx"]
+[gd_scene load_steps=7 format=3 uid="uid://7n5w2hbagctx"]
 
 [ext_resource type="Script" path="res://Dice/Dice.cs" id="1_tpb80"]
 [ext_resource type="ArrayMesh" uid="uid://c4rptnw5jjqc5" path="res://Dice/D10/D10.obj" id="1_uxitg"]
@@ -7,6 +7,16 @@
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iaw16"]
 points = PackedVector3Array(0.168273, 0.891903, 1.12719, -0.169768, -1.00938, -0.943305, -0.169719, 0.722673, -0.942891, -1.41936, 0.178414, 0.49983, 0.041653, -1.09899, 1.04726, 1.33315, -0.380155, -0.231019, -1.3591, -0.461601, -0.311189, 1.27396, 0.260002, 0.580386, -0.849478, 0.854248, 0.877329, 0.761643, -1.05396, -0.606608, 0.0829654, 0.887141, -0.769526, -0.169315, -0.921859, 1.20819, -0.848155, -1.0972, -0.479984, 0.849053, 0.854912, 0.707724, 0.0835686, 0.722767, -0.943013, 0.0831654, -0.921952, 1.20831, -0.169365, 0.804683, 1.20861, 1.24873, -0.163307, -0.303115, -0.841219, 0.886615, 0.617538, 1.26898, 0.0894294, 0.620956, -1.29837, -0.247151, -0.388619, 0.762932, -1.09804, -0.480501, -0.209768, -1.03996, 1.07344, -0.210542, 0.842317, -0.808856, -1.24945, -0.0385897, 0.65434, 0.168506, -1.05258, -0.901791, 0.763654, 0.854338, 0.877187, 1.21909, -0.458332, -0.391377, 0.123868, -1.03997, 1.07344, -0.976849, -1.01362, -0.480964, -1.38419, 0.0037051, 0.53234, -1.39032, -0.205993, -0.26522)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qaceq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [node name="D10" type="RigidBody3D"]
 transform = Transform3D(-0.709195, -0.616494, 0.34202, 0.656059, -0.754709, 0, 0.258126, 0.224385, 0.939692, 0, 0, 0)
@@ -68,3 +78,6 @@ face = 6
 [node name="Normal3" parent="Normals" instance=ExtResource("4_ddmla")]
 transform = Transform3D(-0.583881, 0.70837, -0.396604, -0.78478, -0.617561, 0.052336, -0.207854, 0.341805, 0.916497, 0, 0, 0)
 face = 3
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qaceq")

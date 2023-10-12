@@ -13,6 +13,8 @@ levelNode = NodePath("Level")
 
 [node name="Dice" type="Node" parent="."]
 
+[node name="Players" type="Node" parent="."]
+
 [node name="PlayerUI" parent="." instance=ExtResource("6_bdl22")]
 
 [node name="ConnectUI" type="Control" parent="."]
@@ -52,6 +54,10 @@ spawn_path = NodePath("../Level")
 [node name="DiceSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://Dice/D20.tscn")
 spawn_path = NodePath("../Dice")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/Player.tscn")
+spawn_path = NodePath("../Players")
 
 [node name="ChatHandler" type="Node" parent="."]
 script = ExtResource("4_tp2y6")

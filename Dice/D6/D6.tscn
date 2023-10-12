@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://mu5ulye64d6p"]
+[gd_scene load_steps=7 format=3 uid="uid://mu5ulye64d6p"]
 
 [ext_resource type="Script" path="res://Dice/Dice.cs" id="1_1q6km"]
 [ext_resource type="ArrayMesh" uid="uid://c6phrsp3v8mx2" path="res://Dice/D6/D6.obj" id="1_cvvdl"]
@@ -7,6 +7,16 @@
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ijbxe"]
 points = PackedVector3Array(-0.956667, -0.987602, -0.925732, 0.956667, 0.987602, 0.925732, 0.987602, 0.956667, 0.925732, -0.956667, -0.925732, 0.987602, -0.956667, 0.987602, -0.925732, 0.987602, -0.925732, -0.956667, 0.956667, -0.987602, 0.925732, 0.925732, 0.956667, -0.987602, -0.987602, 0.925732, 0.956667, -0.956667, -0.925732, -0.987602, 0.956667, 0.925732, 0.987602, 0.925732, -0.956667, -0.987602, -0.925732, 0.956667, 0.987602, 0.987602, -0.925732, 0.956667, -0.987602, 0.925732, -0.956667, -0.987602, -0.956667, 0.925732, 0.956667, 0.987602, -0.925732, 0.925732, -0.956667, 0.987602, -0.925732, -0.987602, 0.956667, 0.956667, -0.987602, -0.925732, -0.956667, 0.987602, 0.925732, -0.925732, 0.956667, -0.987602, 0.987602, 0.925732, -0.956667, -0.987602, -0.925732, -0.956667, 0.925732, 0.987602, 0.956667, -0.925732, -0.987602, -0.956667, 0.925732, 0.987602, -0.956667, -0.987602, 0.956667, -0.925732, 0.987602, -0.956667, 0.925732, 0.956667, -0.925732, -0.987602, 0.925732, -0.987602, -0.956667, -0.925732, -0.956667, -0.987602)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ixdbr"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/sync = true
+properties/0/watch = false
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/sync = true
+properties/1/watch = false
 
 [node name="D6" type="RigidBody3D"]
 script = ExtResource("1_1q6km")
@@ -52,3 +62,6 @@ face = 3
 [node name="Normal2" parent="Normals" instance=ExtResource("4_02607")]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
 face = 2
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ixdbr")

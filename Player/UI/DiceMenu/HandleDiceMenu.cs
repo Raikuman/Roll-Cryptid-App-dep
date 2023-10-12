@@ -6,6 +6,7 @@ public partial class HandleDiceMenu : Node
 	[Export] private int _diceRows = 4;
 	private DiceContainer[] _diceContainers;
 	private DiceEnum[] _countDice;
+	private Node _diceHolder;
 	
 	public override void _Ready()
 	{
@@ -30,10 +31,8 @@ public partial class HandleDiceMenu : Node
 	private void RollDice(DiceEnum diceEnum, int diceAmount)
 	{
 		// Retrieve camera vectors
-		// var cameraHolder = (Node3D)GetViewport().GetCamera3D().GetParent();
-		// var camera = GetViewport().GetCamera3D();
-		var cameraHolder = (Node3D)GetNode("/root/Game/Level/Tabletop/Players/1/CameraHolder");
-		var camera = cameraHolder.GetNode<Camera3D>("Camera3D");
+		var cameraHolder = (Node3D)GetViewport().GetCamera3D().GetParent();
+		var camera = GetViewport().GetCamera3D();
 	
 		var up = camera.GlobalTransform.Basis.Y;
 		
@@ -50,10 +49,10 @@ public partial class HandleDiceMenu : Node
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
 	private void _roll_dice(string diceEnum, int diceAmount, int throwerId, Vector3 initialPosition, Transform3D cameraTransform)
 	{
-		if (!IsMultiplayerAuthority() || diceAmount == 0) return;
+		if (diceAmount == 0) return;
 		
 		var diceNode = ResourceLoader.Load<PackedScene>("res://Dice/" + diceEnum + "/" + diceEnum + ".tscn").Instantiate();
-		var diceHolder = GetParent().GetParent().GetNode("Dice");
+		var diceHolder = GetNode("/root/Dice/" + Multiplayer.MultiplayerPeer.GetUniqueId());
 		
 		var left = cameraTransform.Basis.X * 2;
 		var backward = cameraTransform.Basis.Z * 2;
