@@ -108,19 +108,6 @@ public partial class MultiplayerHandler : Node
 		var player = ResourceLoader.Load<PackedScene>("res://Player/Player.tscn").Instantiate();
 		player.Name = playerId.ToString();
 		GetNode("Players").AddChild(player);
-		
-		var node = new Node();
-		node.Name = playerId.ToString();
-		GetNode("Dice").AddChild(node, true);
-		Rpc("_add_dice_node", playerId);
-	}
-
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
-	private void _add_dice_node(long playerId)
-	{
-		var node = new Node();
-		node.Name = playerId.ToString();
-		GetNode("Dice").AddChild(node, true);
 	}
 	
 	private void DeletePlayer(long playerId)
@@ -131,8 +118,6 @@ public partial class MultiplayerHandler : Node
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true)]
 	private void _delete_player(long playerId)
 	{
-		if (!IsMultiplayerAuthority()) return;
-		
 		GD.Print("Disconnected: " + playerId);
 		GetNode("Players/" + playerId).QueueFree();
 		GetNode("Dice/" + playerId).QueueFree();

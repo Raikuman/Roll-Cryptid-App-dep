@@ -36,7 +36,7 @@ transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 mesh = ExtResource("2_vtb0f")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Normals" type="Node3D" parent="."]
@@ -75,3 +75,5 @@ face = 3
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_cqf5o")
+
+[connection signal="timeout" from="Timer" to="." method="_timer_timeout"]

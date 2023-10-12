@@ -58,5 +58,7 @@ face = 4
 replication_config = SubResource("SceneReplicationConfig_tbt2j")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_timer_timeout"]

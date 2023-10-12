@@ -3,13 +3,12 @@ using System;
 
 public partial class Dice : RigidBody3D
 {
-	[Export(PropertyHint.Range, "1, 10")] private float _timerTime;
 	[Export(PropertyHint.Range, "1, 20")] private int _maxVel = 7;
 	public Vector3 ThrowPosition, ThrowAngle;
 	public int UpmostFace, ThrowerId;
 	public bool CompletedRoll;
+	public string DiceEnum;
 	private Timer _timer;
-	
 	
 	public override void _Ready()
 	{
@@ -54,29 +53,27 @@ public partial class Dice : RigidBody3D
 		Position = ThrowPosition;
 	}
 
-	private void CheckForFreeze()
+	private void _timer_timeout()
 	{
-		if ((LinearVelocity.Length() < 0.001 || AngularVelocity.Length() < 0.001) && !CompletedRoll)
+		var upness = GetSideAndUpness();
+		if (upness.Item1 < 0.25f)
 		{
-			if (_timer.IsStopped())
-			{
-				var upness = GetSideAndUpness();
-				if (upness.Item1 < 0.25f)
-				{
-					_timer.Start(_timerTime);
-					ThrowDice();
-				}
-				else
-				{
-					UpmostFace = upness.Item2;
-					Freeze = true;
-					CompletedRoll = true;
-				}
-			}
+			_timer.Start();
+			ThrowDice();
 		}
 		else
 		{
-			_timer.Start(_timerTime);
+			UpmostFace = upness.Item2;
+			Freeze = true;
+			CompletedRoll = true;
+		}
+	}
+	
+	private void CheckForFreeze()
+	{
+		if (LinearVelocity.Length() > 0.001 || AngularVelocity.Length() > 0.001 && !CompletedRoll)
+		{
+			_timer.Start();
 		}
 	}
 

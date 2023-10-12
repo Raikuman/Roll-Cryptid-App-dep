@@ -151,4 +151,9 @@ _startAtTarget = true
 layout_mode = 1
 _hoverArea = NodePath("../Control")
 
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="pressed" from="Control/PanelContainer/MarginContainer/DiceContainer/ControlRoll/Button" to="." method="_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_timer_timeout"]

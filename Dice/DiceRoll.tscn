@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnxjrehwid0wn"]
+
+[ext_resource type="Script" path="res://Dice/DiceRoll.cs" id="1_bj05g"]
+
+[node name="DiceRoll" type="Node3D"]
+script = ExtResource("1_bj05g")
