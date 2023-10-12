@@ -4,56 +4,60 @@ using System;
 public partial class MultiplayerMenu : Node
 {
 	[ExportGroup("Buttons")]
-	[Export] private Button connectButton, hostButton;
+	[Export] private Button _connectButton, _hostButton;
 
 	[ExportGroup("TextLine")] 
-	[Export] private LineEdit addressLine;
+	[Export] private LineEdit _usernameLine, _addressLine;
 	
 	[ExportGroup("Label")] 
-	[Export] private Label errorLabel;
+	[Export] private Label _errorLabel;
 	
-	private MultiplayerVariables multiplayerVariables;
-	private bool isConnecting;
+	private MultiplayerVariables _multiplayerVariables;
+	private PlayerVariables _playerVariables;
+	private bool _isConnecting;
 
 	public override void _Ready()
 	{
-		multiplayerVariables = GetNode<MultiplayerVariables>("/root/MultiplayerVariables");
+		_multiplayerVariables = GetNode<MultiplayerVariables>("/root/MultiplayerVariables");
+		_playerVariables = GetNode<PlayerVariables>("/root/PlayerVariables");
 
-		if (multiplayerVariables.GetConnection() == ConnectionEnum.FAILED)
+		if (_multiplayerVariables.GetConnection() == ConnectionEnum.FAILED)
 		{
-			if (multiplayerVariables.GetHost())
+			if (_multiplayerVariables.GetHost())
 			{
-				errorLabel.Text = "Failed to start multiplayer server";
+				_errorLabel.Text = "Failed to start multiplayer server";
 			}
 			else
 			{
-				errorLabel.Text = "Failed to start multiplayer client";
+				_errorLabel.Text = "Failed to start multiplayer client";
 			}
 			
 			((Fade)GetNode("Fade")).FadeOut();
 		}
 		
-		multiplayerVariables.Reset();
+		_multiplayerVariables.Reset();
 	}
 	
 	private void _on_connect_pressed()
 	{
-		multiplayerVariables.SetAddress(addressLine.Text);
+		_playerVariables.SetUsername(_usernameLine.Text);
+		_multiplayerVariables.SetAddress(_addressLine.Text);
 		((Fade)GetNode("Fade")).FadeIn();
-		isConnecting = true;
+		_isConnecting = true;
 	}
 	
 	private void _on_host_pressed()
 	{
-		multiplayerVariables.SetAddress(addressLine.Text);
-		multiplayerVariables.SetHost(true);
+		_playerVariables.SetUsername(_usernameLine.Text);
+		_multiplayerVariables.SetAddress(_addressLine.Text);
+		_multiplayerVariables.SetHost(true);
 		((Fade)GetNode("Fade")).FadeIn();
-		isConnecting = true;
+		_isConnecting = true;
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!isConnecting) return;
+		if (!_isConnecting) return;
 
 		if (((Fade)GetNode("Fade")).AllowFunction())
 		{

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccykobcy3q10c"]
+[gd_scene load_steps=7 format=3 uid="uid://ccykobcy3q10c"]
 
 [ext_resource type="Script" path="res://Player/PlayerCamera.cs" id="1_p7vyr"]
 [ext_resource type="Script" path="res://Player/MouseManager.cs" id="1_x5j8t"]
+[ext_resource type="Script" path="res://Player/PlayerJoin.cs" id="3_troix"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grnty"]
 albedo_color = Color(0, 0, 1, 1)
@@ -25,9 +26,6 @@ transform = Transform3D(0.5, 0, 0, 0, 0.055, 0, 0, 0, 0.5, 0, 0, 0)
 cast_shadow = 0
 mesh = SubResource("CylinderMesh_nnu4l")
 
-[node name="Timer" type="Timer" parent="MouseManager"]
-wait_time = 0.5
-
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="MouseManager"]
 root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_2am0o")
@@ -38,4 +36,5 @@ script = ExtResource("1_p7vyr")
 [node name="Camera3D" type="Camera3D" parent="CameraHolder"]
 transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766045, 0, -0.766045, 0.642788, 0, 0, 0)
 
-[connection signal="timeout" from="MouseManager/Timer" to="MouseManager" method="_on_timer_timeout"]
+[node name="Node" type="Node" parent="."]
+script = ExtResource("3_troix")

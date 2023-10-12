@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://GameScenes/MultiplayerMenu/MultiplayerMenu.cs" id="1_5qg5y"]
 [ext_resource type="PackedScene" uid="uid://c52ch21kwjlyv" path="res://Resources/Fade/Fade.tscn" id="2_6h776"]
 
-[node name="MultiplayerMenu" type="Node" node_paths=PackedStringArray("connectButton", "hostButton", "addressLine", "errorLabel")]
+[node name="MultiplayerMenu" type="Node" node_paths=PackedStringArray("_connectButton", "_hostButton", "_usernameLine", "_addressLine", "_errorLabel")]
 script = ExtResource("1_5qg5y")
-connectButton = NodePath("Menu/VBoxContainer/Connect")
-hostButton = NodePath("Menu/VBoxContainer/Host")
-addressLine = NodePath("Menu/VBoxContainer/Address")
-errorLabel = NodePath("Menu/VBoxContainer/Control/Error")
+_connectButton = NodePath("Menu/VBoxContainer/Connect")
+_hostButton = NodePath("Menu/VBoxContainer/Host")
+_usernameLine = NodePath("Menu/VBoxContainer/Username")
+_addressLine = NodePath("Menu/VBoxContainer/Address")
+_errorLabel = NodePath("Menu/VBoxContainer/Control/Error")
 
 [node name="Menu" type="Control" parent="."]
 layout_mode = 3
@@ -28,9 +29,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -150.0
-offset_top = -12.0
+offset_top = -70.0
 offset_right = 150.0
-offset_bottom = 12.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -47,6 +48,10 @@ offset_bottom = -0.720001
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
+
+[node name="Username" type="LineEdit" parent="Menu/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Username"
 
 [node name="Address" type="LineEdit" parent="Menu/VBoxContainer"]
 layout_mode = 2

@@ -29,6 +29,8 @@ public partial class PlayerCamera : Node3D
 	[Export] private float _tactSpeed = 5f;
 	private bool _tacticalView;
 	private float _tactDefaultRot = -50f;
+
+	private PlayerVariables _playerVariables;
 	
 	public override void _EnterTree()
 	{
@@ -38,6 +40,8 @@ public partial class PlayerCamera : Node3D
 	
 	public override void _Ready()
 	{
+		_playerVariables = GetNode<PlayerVariables>("/root/PlayerVariables");
+		
 		cameraObj = (Camera3D)GetNode("Camera3D");
 		Position = new Vector3(0, 3, 0);
 	}
@@ -56,6 +60,8 @@ public partial class PlayerCamera : Node3D
 	
 	public override void _PhysicsProcess(double delta)
 	{
+		if (!IsMultiplayerAuthority()) return;
+		
 		HandleMovement(delta);
 		HandlePan(delta);
 		HandleZoom(delta);
@@ -74,7 +80,7 @@ public partial class PlayerCamera : Node3D
 			_forward = false;
 		}
 
-		if (_forward)
+		if (_forward && _playerVariables.GetCameraEnabled())
 		{
 			if (Input.IsActionPressed("move_forward"))
 			{
@@ -95,7 +101,7 @@ public partial class PlayerCamera : Node3D
 			_sideways = false;
 		}
 
-		if (_sideways)
+		if (_sideways && _playerVariables.GetCameraEnabled())
 		{
 			if (Input.IsActionPressed("move_left"))
 			{
@@ -124,7 +130,7 @@ public partial class PlayerCamera : Node3D
 
 	private void HandlePan(double delta)
 	{
-		if (Input.IsActionPressed("rmb"))
+		if (Input.IsActionPressed("rmb") && _playerVariables.GetCameraEnabled())
 		{
 			if (Input.IsActionJustPressed("rmb"))
 			{
@@ -145,7 +151,7 @@ public partial class PlayerCamera : Node3D
 		
 		// Clamp pan speed
 		_panVelocity = Mathf.Clamp(_panVelocity, _panMaxSpeed * -1, _panMaxSpeed);
-
+		
 		// Update rotation, mouse position, and decelerate panning
 		Rotation += new Vector3(0, _panVelocity * (float)delta, 0);
 		_prevMousePosition = _mousePosition;
@@ -163,16 +169,19 @@ public partial class PlayerCamera : Node3D
 				_zoomReset = false;
 			}
 		}
-		
-		if (Input.IsActionJustPressed("scrollwheel_down") && _zoomEnableDown)
+
+		if (_playerVariables.GetCameraEnabled())
 		{
-			_zoomVelocity += _zoomSpeed;
-		} else if (Input.IsActionJustPressed("scrollwheel_up") && _zoomEnableUp)
-		{
-			_zoomVelocity -= _zoomSpeed;
-		} else if (Input.IsActionJustPressed("mmb"))
-		{
-			_zoomReset = true;
+			if (Input.IsActionJustPressed("scrollwheel_down") && _zoomEnableDown)
+			{
+				_zoomVelocity += _zoomSpeed;
+			} else if (Input.IsActionJustPressed("scrollwheel_up") && _zoomEnableUp)
+			{
+				_zoomVelocity -= _zoomSpeed;
+			} else if (Input.IsActionJustPressed("mmb"))
+			{
+				_zoomReset = true;
+			}
 		}
 		
 		// Check small velocities
@@ -201,7 +210,7 @@ public partial class PlayerCamera : Node3D
 
 	private void HandleTopDown(double delta)
 	{
-		if (Input.IsActionJustPressed("tactical_view"))
+		if (Input.IsActionJustPressed("tactical_view") && _playerVariables.GetCameraEnabled())
 		{
 			_tacticalView = !_tacticalView;
 		}

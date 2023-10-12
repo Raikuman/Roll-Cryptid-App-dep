@@ -32,15 +32,14 @@ public partial class MouseManager : Node3D
 	{
 		var raycast = Raycast();
 
-		// Hide mouse when off object
-		if (raycast.Count > 0)
-		{
-			if (!_mouseMesh.Visible) _mouseMesh.Show();
-		}
-		else
-		{
-			if (_mouseMesh.Visible) _mouseMesh.Hide();
-		}
+		// if (raycast.Count > 0)
+		// {
+		// 	if (!_mouseMesh.Visible) _mouseMesh.Show();
+		// }
+		// else
+		// {
+		// 	if (_mouseMesh.Visible) _mouseMesh.Hide();
+		// }
 		
 		// Return on no cast
 		if (raycast.Count == 0) return;
