@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcnppu8ycn7n"]
+
+[ext_resource type="Script" path="res://Player/UI/InfoMenu/FPS.cs" id="1_2n5nn"]
+[ext_resource type="Script" path="res://Player/UI/InfoMenu/Vsync.cs" id="2_rcrr4"]
+
+[node name="GameInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -114.0
+offset_top = 1.0
+offset_right = 36.0
+offset_bottom = 57.0
+grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="FPS" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/FPS"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="FPSLabelText" type="Label" parent="PanelContainer/VBoxContainer/FPS/MarginContainer"]
+layout_mode = 2
+text = "FPS: "
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/FPS"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 5
+
+[node name="FPSLabel" type="Label" parent="PanelContainer/VBoxContainer/FPS/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+horizontal_alignment = 2
+script = ExtResource("1_2n5nn")
+
+[node name="VSYNC" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/VSYNC"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+
+[node name="CheckButton" type="CheckButton" parent="PanelContainer/VBoxContainer/VSYNC/MarginContainer" node_paths=PackedStringArray("_vsyncLabel")]
+layout_mode = 2
+focus_mode = 0
+button_pressed = true
+script = ExtResource("2_rcrr4")
+_vsyncLabel = NodePath("../../MarginContainer2/VSyncLabel")
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/VSYNC"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_right = 5
+
+[node name="VSyncLabel" type="Label" parent="PanelContainer/VBoxContainer/VSYNC/MarginContainer2"]
+layout_mode = 2
+text = "VSYNC ON"
+horizontal_alignment = 2

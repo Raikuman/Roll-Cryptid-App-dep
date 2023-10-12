@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://67tfg1fmfwv2"]
+
+[ext_resource type="PackedScene" uid="uid://cdr2hh5s780nm" path="res://Levels/Sky/Environment.tscn" id="1_0ii6v"]
+[ext_resource type="PackedScene" uid="uid://c3gw2nxa5os1c" path="res://Player/UI/EnvironmentMenu/EnvironmentControl.tscn" id="2_ru3ff"]
+
+[node name="EnvironmentHandler" type="Node"]
+
+[node name="Environment" parent="." instance=ExtResource("1_0ii6v")]
+
+[node name="EnvironmentControl" parent="." instance=ExtResource("2_ru3ff")]

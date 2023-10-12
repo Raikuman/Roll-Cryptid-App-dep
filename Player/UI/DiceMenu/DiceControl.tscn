@@ -1,0 +1,154 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq6j8qw88jmt"]
+
+[ext_resource type="Script" path="res://Player/UI/DiceMenu/HandleDiceMenu.cs" id="1_q3loi"]
+[ext_resource type="PackedScene" uid="uid://bshuwuunpbqsd" path="res://Player/UI/DiceMenu/DiceButtonContainer.tscn" id="2_27qj7"]
+[ext_resource type="PackedScene" uid="uid://cbv5vufglvps4" path="res://Resources/UIAnimations/AnimateToLocation.tscn" id="3_3uton"]
+[ext_resource type="PackedScene" uid="uid://bmsls8qpvnnd0" path="res://Resources/UIAnimations/HoverToAnimate.tscn" id="4_0rxa4"]
+
+[node name="DiceControl" type="Control"]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+script = ExtResource("1_q3loi")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = -150.0
+offset_right = 225.0
+offset_bottom = 0.000244141
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -206.0
+offset_top = -80.0
+offset_right = 206.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="DiceContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ControlRoll" type="Control" parent="Control/PanelContainer/MarginContainer/DiceContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlRoll"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 0
+text = "Roll"
+
+[node name="ControlDice" type="Control" parent="Control/PanelContainer/MarginContainer/DiceContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DiceContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="DiceButtonContainer" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+
+[node name="DiceButtonContainer2" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+DiceEnum = 1
+
+[node name="DiceButtonContainer3" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+DiceEnum = 2
+
+[node name="DiceButtonContainer4" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+DiceEnum = 3
+
+[node name="DiceButtonContainer5" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+DiceEnum = 4
+
+[node name="DiceButtonContainer6" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+DiceEnum = 5
+
+[node name="DiceButtonContainer7" parent="Control/PanelContainer/MarginContainer/DiceContainer/ControlDice/MarginContainer/DiceContainer" instance=ExtResource("2_27qj7")]
+layout_mode = 2
+DiceEnum = 6
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -90.0
+offset_right = 100.0
+offset_bottom = -70.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, 0.5)
+
+[node name="Label" type="Label" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "^"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimateToLocation" parent="." node_paths=PackedStringArray("_control") instance=ExtResource("3_3uton")]
+layout_mode = 1
+_control = NodePath("../Control")
+_addPosition = Vector2(0, 80)
+_startAtTarget = true
+
+[node name="HoverToAnimate" parent="." node_paths=PackedStringArray("_hoverArea") instance=ExtResource("4_0rxa4")]
+layout_mode = 1
+_hoverArea = NodePath("../Control")
+
+[connection signal="pressed" from="Control/PanelContainer/MarginContainer/DiceContainer/ControlRoll/Button" to="." method="_button_pressed"]

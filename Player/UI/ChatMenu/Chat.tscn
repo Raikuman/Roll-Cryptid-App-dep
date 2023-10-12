@@ -1,0 +1,150 @@
+[gd_scene load_steps=6 format=3 uid="uid://b16krtrvn2hem"]
+
+[ext_resource type="Script" path="res://Resources/ScrollToBottom.cs" id="1_hd5yf"]
+[ext_resource type="Script" path="res://Chat/HandleCameraAndChat.cs" id="2_hjlra"]
+[ext_resource type="Script" path="res://Player/UI/ChatMenu/ChatHideButton.cs" id="2_s70pa"]
+[ext_resource type="PackedScene" uid="uid://cplf67pkf5xdm" path="res://Resources/UIAnimations/AnimateToScale.tscn" id="2_ur17t"]
+[ext_resource type="PackedScene" uid="uid://cbv5vufglvps4" path="res://Resources/UIAnimations/AnimateToLocation.tscn" id="3_5uvmp"]
+
+[node name="Chat" type="Control"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -177.965
+offset_top = -2.815
+offset_right = -177.965
+offset_bottom = -2.815
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ChatBox" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -175.0
+offset_top = -192.0
+offset_right = 175.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(0, 192)
+
+[node name="ChatContainer" type="PanelContainer" parent="Control/ChatBox"]
+layout_mode = 2
+offset_right = 350.0
+offset_bottom = 150.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/ChatBox/ChatContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+script = ExtResource("1_hd5yf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/ChatBox/ChatContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="EntryContainer" type="PanelContainer" parent="Control/ChatBox"]
+layout_mode = 2
+offset_top = 152.0
+offset_right = 350.0
+offset_bottom = 192.0
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/ChatBox/EntryContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="Control" type="Control" parent="Control/ChatBox/EntryContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LineEdit" type="LineEdit" parent="Control/ChatBox/EntryContainer/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -46.405
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_hjlra")
+
+[node name="Control2" type="Control" parent="Control/ChatBox/EntryContainer/MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Button" type="Button" parent="Control/ChatBox/EntryContainer/MarginContainer/Control2"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -18.0
+offset_bottom = 18.0
+grow_horizontal = 0
+grow_vertical = 2
+focus_mode = 0
+text = ">"
+
+[node name="Button" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -175.0
+offset_top = -212.0
+offset_right = 175.0
+offset_bottom = -194.0
+grow_horizontal = 2
+focus_mode = 0
+
+[node name="Label" type="Label" parent="Control/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Close Chat"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="Control/Button"]
+anchors_preset = 0
+script = ExtResource("2_s70pa")
+
+[node name="AnimateToScale" parent="Control" node_paths=PackedStringArray("_control") instance=ExtResource("2_ur17t")]
+layout_mode = 1
+_control = NodePath("../ChatBox")
+_targetScale = Vector2(1, 0)
+
+[node name="AnimateToLocation" parent="Control" node_paths=PackedStringArray("_control") instance=ExtResource("3_5uvmp")]
+_control = NodePath("../Button")
+_addPosition = Vector2(0, 194)
+
+[connection signal="pressed" from="Control/ChatBox/EntryContainer/MarginContainer/Control2/Button" to="Control/ChatBox/EntryContainer/MarginContainer/Control/LineEdit" method="_on_chat_button_pressed"]
+[connection signal="pressed" from="Control/Button" to="Control/Button/Control" method="_on_button_pressed"]

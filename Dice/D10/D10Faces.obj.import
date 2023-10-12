@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dkb4h0t1jybrt"
+path="res://.godot/imported/D10Faces.obj-776c0e2abbff4d8d933b14c24832b22b.mesh"
+
+[deps]
+
+files=["res://.godot/imported/D10Faces.obj-776c0e2abbff4d8d933b14c24832b22b.mesh"]
+
+source_file="res://Dice/D10/D10Faces.obj"
+dest_files=["res://.godot/imported/D10Faces.obj-776c0e2abbff4d8d933b14c24832b22b.mesh", "res://.godot/imported/D10Faces.obj-776c0e2abbff4d8d933b14c24832b22b.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

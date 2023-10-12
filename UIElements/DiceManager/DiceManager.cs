@@ -39,7 +39,7 @@ public partial class DiceManager : Node
 		if (!IsMultiplayerAuthority()) return;
 		
 		var diceResource = ResourceLoader.Load<PackedScene>("res://Dice/D20.tscn").Instantiate();
-
+	
 		var left = cameraTransform.Basis.X * 2;
 		var backward = cameraTransform.Basis.Z * -2;
 		var down = cameraTransform.Basis.Y * -2;
@@ -50,8 +50,8 @@ public partial class DiceManager : Node
 		for (var i = 0; i < numDice; i++)
 		{
 			var newDice = diceResource.Duplicate();
-			((Dice)newDice)._thrower = throwId;
-			((Dice)newDice)._initialPosition = initialPosition + left;
+			((Dice)newDice).ThrowerId = throwId;
+			((Dice)newDice).ThrowPosition = initialPosition + left;
 			newDice.Name = "D20-";
 			GetParent().GetNode("Dice").AddChild(newDice, true);
 
@@ -74,7 +74,7 @@ public partial class DiceManager : Node
 			// Throw dice
 			if (newDice is Dice dice)
 			{
-				dice.ThrowDice(spawnPos, cameraTransform.Basis.Z.Normalized() * -1);
+				dice.ThrowDice();
 			}
 
 			// Update rows and sets

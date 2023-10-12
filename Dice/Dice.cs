@@ -3,16 +3,20 @@ using System;
 
 public partial class Dice : RigidBody3D
 {
-	[Export] private int _numSides = 20, _maxVel = 10;
-	public Vector3 _initialPosition;
-	public int _upmostFace, _thrower;
-	private double _freezeTimer, _freezeThreshold = 1;
+	[Export(PropertyHint.Range, "1, 10")] private float _timerTime;
+	[Export(PropertyHint.Range, "1, 20")] private int _maxVel = 7;
+	public Vector3 ThrowPosition, ThrowAngle;
+	public int UpmostFace, ThrowerId;
+	public bool CompletedRoll;
+	private Timer _timer;
+	
 	
 	public override void _Ready()
 	{
-		Position = _initialPosition;
+		_timer = GetNode<Timer>("Timer");
 		Freeze = true;
-
+		
+		// Only calculate physics on server
 		if (!IsMultiplayerAuthority())
 		{
 			FreezeMode = FreezeModeEnum.Static;
@@ -21,65 +25,80 @@ public partial class Dice : RigidBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if (Freeze) return;
+
+		CheckForFreeze();
+		
+		// Reset position if falling out of world
 		if (Position.Y < -20)
 		{
-			Position = _initialPosition;
+			Position = ThrowPosition;
 		}
 	}
 
-	public override void _Process(double delta)
-	{
-		if (Freeze) return;
-		
-		if (LinearVelocity.Length() < 0.1 && AngularVelocity.Length() < 0.1 && Freeze == false)
-		{
-			_freezeTimer += delta;
-			if (_freezeTimer > _freezeThreshold)
-			{
-				Freeze = true;
-				// GetSide
-			}
-		}
-		else
-		{
-			_freezeTimer = 0;
-		}
-	}
-	
-	public void ThrowDice(Vector3 throwPosition, Vector3 throwAngle)
+	public void ThrowDice()
 	{
 		Freeze = false;
 
 		var rng = new RandomNumberGenerator();
-
+		
 		var generateAngle = rng.RandfRange(Mathf.DegToRad(40f), Mathf.DegToRad(360f));
 		var randomAngle = new Vector3(
-			generateAngle * rng.RandiRange(-7, 7), 
-			generateAngle * rng.RandiRange(-7, 7), 
-			generateAngle * rng.RandiRange(-7, 7));
+			generateAngle * rng.RandiRange(-3, 3), 
+			generateAngle * rng.RandiRange(-3, 3), 
+			generateAngle * rng.RandiRange(-3, 3));
 		AngularVelocity = randomAngle;
 
-		throwAngle.Y += Mathf.DegToRad(40f);
-		LinearVelocity = throwAngle * _maxVel;
-		Position = throwPosition;
+		ThrowAngle.Y += Mathf.DegToRad(40f);
+		LinearVelocity = ThrowAngle * _maxVel;
+		Position = ThrowPosition;
 	}
 
-	private void getSide()
+	private void CheckForFreeze()
 	{
-		var maxUpness = 0.0;
-		var normalsNode = GetNode("Normals");
-		foreach (var normalNode in normalsNode.GetChildren())
+		if ((LinearVelocity.Length() < 0.001 || AngularVelocity.Length() < 0.001) && !CompletedRoll)
 		{
-			var script = (DiceNormal)normalNode;
+			if (_timer.IsStopped())
+			{
+				var upness = GetSideAndUpness();
+				if (upness.Item1 < 0.25f)
+				{
+					_timer.Start(_timerTime);
+					ThrowDice();
+				}
+				else
+				{
+					UpmostFace = upness.Item2;
+					Freeze = true;
+					CompletedRoll = true;
+				}
+			}
+		}
+		else
+		{
+			_timer.Start(_timerTime);
+		}
+	}
 
-			var normalY = normalNode.GetNode<MeshInstance3D>("MeshInstance3D").GlobalTransform.Basis.Y;
+	private (float, int) GetSideAndUpness()
+	{
+		var maxUpness = 0.0f;
+		var face = 0;
+		var normalsNode = GetNode("Normals");
+
+		foreach (var normal in normalsNode.GetChildren())
+		{
+			var script = (DiceNormal)normal;
+			var normalY = normal.GetNode<MeshInstance3D>("MeshInstance3D").GlobalTransform.Basis.Y;
 			var upness = normalY.Dot(Vector3.Up);
-
+			
 			if (upness > maxUpness)
 			{
 				maxUpness = upness;
-				_upmostFace = script.face;
+				face = script.face;
 			}
 		}
+
+		return (maxUpness, face);
 	}
 }

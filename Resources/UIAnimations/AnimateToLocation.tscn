@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbv5vufglvps4"]
+
+[ext_resource type="Script" path="res://Resources/UIAnimations/Scripts/AnimateToLocation.cs" id="1_thpfp"]
+
+[node name="AnimateToLocation" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_thpfp")

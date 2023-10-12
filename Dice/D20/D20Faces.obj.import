@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3h2wns60ktnu"
+path="res://.godot/imported/D20Faces.obj-161c2b3a0f3edc551199697bf217dfa8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/D20Faces.obj-161c2b3a0f3edc551199697bf217dfa8.mesh"]
+
+source_file="res://Dice/D20/D20Faces.obj"
+dest_files=["res://.godot/imported/D20Faces.obj-161c2b3a0f3edc551199697bf217dfa8.mesh", "res://.godot/imported/D20Faces.obj-161c2b3a0f3edc551199697bf217dfa8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

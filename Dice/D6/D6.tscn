@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://mu5ulye64d6p"]
+
+[ext_resource type="Script" path="res://Dice/Dice.cs" id="1_1q6km"]
+[ext_resource type="ArrayMesh" uid="uid://c6phrsp3v8mx2" path="res://Dice/D6/D6.obj" id="1_cvvdl"]
+[ext_resource type="ArrayMesh" uid="uid://x4hu52hs0tx4" path="res://Dice/D6/D6Faces.obj" id="2_f2bfw"]
+[ext_resource type="PackedScene" uid="uid://cne2d5mk07x01" path="res://Dice/Normals/dicenormal.tscn" id="4_02607"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ijbxe"]
+points = PackedVector3Array(-0.956667, -0.987602, -0.925732, 0.956667, 0.987602, 0.925732, 0.987602, 0.956667, 0.925732, -0.956667, -0.925732, 0.987602, -0.956667, 0.987602, -0.925732, 0.987602, -0.925732, -0.956667, 0.956667, -0.987602, 0.925732, 0.925732, 0.956667, -0.987602, -0.987602, 0.925732, 0.956667, -0.956667, -0.925732, -0.987602, 0.956667, 0.925732, 0.987602, 0.925732, -0.956667, -0.987602, -0.925732, 0.956667, 0.987602, 0.987602, -0.925732, 0.956667, -0.987602, 0.925732, -0.956667, -0.987602, -0.956667, 0.925732, 0.956667, 0.987602, -0.925732, 0.925732, -0.956667, 0.987602, -0.925732, -0.987602, 0.956667, 0.956667, -0.987602, -0.925732, -0.956667, 0.987602, 0.925732, -0.925732, 0.956667, -0.987602, 0.987602, 0.925732, -0.956667, -0.987602, -0.925732, -0.956667, 0.925732, 0.987602, 0.956667, -0.925732, -0.987602, -0.956667, 0.925732, 0.987602, -0.956667, -0.987602, 0.956667, -0.925732, 0.987602, -0.956667, 0.925732, 0.956667, -0.925732, -0.987602, 0.925732, -0.987602, -0.956667, -0.925732, -0.956667, -0.987602)
+
+[node name="D6" type="RigidBody3D"]
+script = ExtResource("1_1q6km")
+
+[node name="Dice" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = ExtResource("1_cvvdl")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_ijbxe")
+
+[node name="Faces" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = ExtResource("2_f2bfw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Normals" type="Node3D" parent="."]
+visible = false
+
+[node name="Normal4" parent="Normals" instance=ExtResource("4_02607")]
+face = 4
+
+[node name="Normal1" parent="Normals" instance=ExtResource("4_02607")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+face = 4
+
+[node name="Normal6" parent="Normals" instance=ExtResource("4_02607")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+face = 4
+
+[node name="Normal5" parent="Normals" instance=ExtResource("4_02607")]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+face = 5
+
+[node name="Normal3" parent="Normals" instance=ExtResource("4_02607")]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+face = 3
+
+[node name="Normal2" parent="Normals" instance=ExtResource("4_02607")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+face = 2

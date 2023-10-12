@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2huxfvvfboyd"]
+[gd_scene load_steps=10 format=3 uid="uid://b2huxfvvfboyd"]
 
-[ext_resource type="Script" path="res://Dice/Dice.cs" id="1_aqaag"]
+[ext_resource type="Script" path="res://Dice/DiceOld.cs" id="1_3n4ma"]
 [ext_resource type="ArrayMesh" uid="uid://xy7ndmf2ukww" path="res://Models/die.obj" id="2_a6yk0"]
 [ext_resource type="ArrayMesh" uid="uid://bwgjpvggs5qbu" path="res://Models/numbers.obj" id="3_ichil"]
 [ext_resource type="PackedScene" uid="uid://cne2d5mk07x01" path="res://Dice/Normals/dicenormal.tscn" id="4_k3gv8"]
+[ext_resource type="PackedScene" uid="uid://cxreo7bahioa3" path="res://Dice/D20/D20.tscn" id="5_aulfm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dfv4u"]
 albedo_color = Color(0.643137, 0.768627, 1, 1)
@@ -31,7 +32,7 @@ properties/1/watch = false
 collision_layer = 2
 collision_mask = 2
 mass = 0.05
-script = ExtResource("1_aqaag")
+script = ExtResource("1_3n4ma")
 
 [node name="Die" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.0982287, 0.0187381, 0, -0.0187381, 0.0982287, 0, 0, 0)
@@ -134,3 +135,6 @@ face = 1
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_7sknj")
+
+[node name="D20" parent="." instance=ExtResource("5_aulfm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.61704, 0, 0)

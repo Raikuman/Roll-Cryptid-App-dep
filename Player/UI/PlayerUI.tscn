@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://byg37y5bp2o2f"]
+
+[ext_resource type="Script" path="res://Player/UI/PlayerUI.cs" id="1_8l1i4"]
+[ext_resource type="PackedScene" uid="uid://bq6j8qw88jmt" path="res://Player/UI/DiceMenu/DiceControl.tscn" id="1_e8g44"]
+[ext_resource type="PackedScene" uid="uid://bcnppu8ycn7n" path="res://Player/UI/InfoMenu/GameInfo.tscn" id="3_kv1a6"]
+[ext_resource type="PackedScene" uid="uid://b16krtrvn2hem" path="res://Player/UI/ChatMenu/Chat.tscn" id="4_07f58"]
+[ext_resource type="PackedScene" uid="uid://67tfg1fmfwv2" path="res://Player/UI/EnvironmentMenu/EnvironmentHandler.tscn" id="5_es3xq"]
+[ext_resource type="PackedScene" uid="uid://buxwdg7qk4giq" path="res://Player/UI/GameMenu/GameMenu.tscn" id="5_yweg5"]
+
+[node name="PlayerUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_mode = 1
+script = ExtResource("1_8l1i4")
+
+[node name="Chat" parent="." instance=ExtResource("4_07f58")]
+layout_mode = 1
+
+[node name="GameInfo" parent="." instance=ExtResource("3_kv1a6")]
+layout_mode = 1
+
+[node name="DiceControl" parent="." instance=ExtResource("1_e8g44")]
+layout_mode = 1
+
+[node name="GameMenu" parent="." instance=ExtResource("5_yweg5")]
+layout_mode = 1
+
+[node name="EnvironmentHandler" parent="." instance=ExtResource("5_es3xq")]
